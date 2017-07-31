@@ -16,14 +16,24 @@
 import logging
 
 from flask import Flask
-
+from konlpy.tag import Komoran
 
 app = Flask(__name__)
+komoran = Komoran()
 
 
 @app.route('/')
 def hello():
-    return 'Hello World!'
+    return 'Hello, We are GuelGil Developer XD'
+
+@app.route('/noun/<string:str>')
+def natural_noun(str):
+    list = komoran.nouns(unicode(str))
+    result = ""
+    for i in list:
+        result += i
+        result += "\t"
+    return result
 
 
 @app.errorhandler(500)
@@ -31,4 +41,5 @@ def server_error(e):
     # Log the error and stacktrace.
     logging.exception('An error occurred during a request.')
     return 'An internal error occurred.', 500
+
 # [END app]
