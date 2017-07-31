@@ -17,6 +17,7 @@ import logging
 
 from flask import Flask
 from konlpy.tag import Komoran
+import json
 
 app = Flask(__name__)
 komoran = Komoran()
@@ -29,10 +30,11 @@ def hello():
 @app.route('/noun/<string:str>')
 def natural_noun(str):
     list = komoran.nouns(unicode(str))
-    result = ""
-    for i in list:
-        result += i
-        result += "\t"
+    result = json.dumps(list, indent=4)
+    # result = ""
+    # for i in list:
+    #     result += i
+    #     result += "\t"
     return result
 
 
