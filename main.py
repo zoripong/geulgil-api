@@ -16,7 +16,7 @@
 import logging
 
 from flask import Flask
-from konlpy.tag import Komoran
+from konlpy.tag import *
 import json
 
 app = Flask(__name__)
