@@ -1,5 +1,5 @@
 lib
 *.sock
-venv/
-logs/
+venv
+logs
 *.log
