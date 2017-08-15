@@ -20,6 +20,7 @@ from konlpy.tag import *
 import json
 
 app = Flask(__name__)
+app.debug=True
 komoran = Komoran()
 
 
@@ -30,7 +31,7 @@ def hello():
 @app.route('/noun/<string:str>')
 def natural_noun(str):
     list = komoran.nouns(unicode(str))
-    result = json.dumps(list, indent=4)
+    result = json.dumps(list, indent=4, ensure_ascii=False)
     # result = ""
     # for i in list:
     #     result += i
@@ -46,6 +47,7 @@ def server_error(e):
 
 
 if __name__ == '__main__':
+    app.debug=True
     app.run(host="0.0.0.0")
 
 # [END app]
