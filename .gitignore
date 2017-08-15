@@ -1,1 +1,5 @@
 lib
+*.sock
+venv/
+logs/
+*.log
