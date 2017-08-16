@@ -26,7 +26,7 @@ komoran = Komoran()
 
 @app.route('/')
 def hello():
-    return 'Hello, We are GuelGil Developer XD'
+    return 'Hello, We are GuelGil Developer <3'
 
 @app.route('/noun/<string:str>')
 def natural_noun(str):
