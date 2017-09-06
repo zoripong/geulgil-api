@@ -1,77 +1,144 @@
 #-*- coding: utf-8 -*-
 
-from konlpy.tag import *
 import json
+
+#[fourth function]
 import collections
-import urllib2
+import urllib.request
+from urllib.parse import quote
 from bs4 import BeautifulSoup
+#[fifth function]
+from konlpy.tag import Twitter #Window용
+from konlpy.tag import Mecab #Linux용
+#[sixth function]
+import requests
 
-# first function
-def test_server(words_sentence):
-    words = words_sentence.split(':')
+#[wordItem modeling]
+class WordItem:
+    def __init__(self):
+        self.id = None;
+        self.recommend = 0;
+
+    def __init__(self, id, word, mean, part, category, meanKeyword, similarKeyword, recommend):
+        self.id = id
+        self.word = word
+        self.mean = mean
+        self.part = part
+        self.category = category
+        self.meanKeyword = meanKeyword #list
+        self.similarKeyword = similarKeyword #list
+        self.recommend = recommend
+
+    def print(self):
+        print(self.word)
+        print(self.mean)
+        print(self.part)
+        print(self.category)
+        print(self.meanKeyword)
+        print(self.similarKeyword)
+        print(self.recommend)
+
+    def getId(self):
+        return self.id
+    def getWord(self):
+        return self.word
+    def getMean(self):
+        return self.mean
+    def getPart(self):
+        return self.part
+    def getCategory(self):
+        return self.category
+    def getMeanKeyword(self):
+        return self.meanKeyword
+    def getSimilarKeyword(self):
+        return self.similarKeyword
+    def getRecommend(self):
+        return self.recommend
+
+
+
+# [first function -> 검색어들과 관련된 단어들을 모두 가지고 옴]
+def test_server(word):
+    # words = words_sentence.split(':')
     word_json_dict = collections.OrderedDict()
+    word_json_list = list()
+    word_json_list = get_word_json(word)
     num = 0
-    for i in words:
-        i.strip()
-        word_json_dict[num] = get_word_json(i)
-        num+=1
-
+    for i in word_json_list:
+        num += 1
+        word_json_dict['no'] = num
+        word_json_dict['json'] = i
     result_json = collections.OrderedDict()
-    result_json['respone sign'] = "ok"
+    result_json['response sign'] = "ok"
     result_json['result'] = word_json_dict
     return json.dumps(result_json, ensure_ascii=False, indent=4)
 
-# second function
-def get_word_json(word):
-    title = word  # type str
-    relatives = get_relatives(word)  # type
-    word_json = {
-        "title" : title,
-        "relatives" :relatives
-    }
-    return json.dumps(word_json, ensure_ascii=False, indent=4)
 
- #TODO 값이 여러 개일 경우도 처리,,,, saemmul 의 결과가 여러개일 경우......
-# third function
+
+# [second function : 하나의 단어와 관련된 단어들을 가지고 옴]
+def get_word_json(word):
+    json_list = list()
+    relatives = get_relatives(word)  # type
+    for i in relatives:
+        title = word  # type str
+        word_json = {
+            "title": title.decode('utf8'),
+            "relatives": relatives
+        }
+        json_list.append(json.dumps(word_json, ensure_ascii=False, indent=4))
+
+    return json_list
+
+
+# [데이터 베이스에서 새로운 Word 데이터 요청시 호출 함수]
+# [return : WordItem List]
 def get_relatives(word):
-    result = get_saemmul_data(word)
-    mean_words = get_mean_words(result['word'])
-    similar_words = get_similar_words(result['word'])
-    relatives = collections.OrderedDict()
-    relatives['word'] = result['word']
-    relatives['mean'] = result['mean']
-    relatives['category'] = result['category']
-    relatives['part'] = result['part']
-    relatives['mean keywords'] = mean_words
-    relatives['similar keywords'] = similar_words
-    relatives['recommend'] = 0
+    results = get_saemmul_data(word)
+    relatives = list()
+    for i in results:
+        result = i
+        item = WordItem(None, result['word'], result['mean'], result['part'], result['category'],
+                        get_mean_words(result['mean']), get_similar_words(result['word'], result['mean']), None )
+        relatives.append(item)
     return relatives
 
 
-# fourth function
+# [fourth function : 샘물 api에서 국어사전 정보 가져옴]
 def get_saemmul_data(word):
+
+    #검색 단어
+    requestWord = word
+
+    #api 요청키 및 url
     key = "F635422D1CB1AFD64F654E7C547387F1"
-    requestWord = urllib2.quote(word)
-    url = "https://opendict.korean.go.kr/api/search" + "?key=" + key + "&q=" + requestWord + "&num=10" \
-          + "&sort=popular" + "&advanced=y" + "&target=1" + "&method=exact" + "&type1=word";
-    user_agent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"
-    req = urllib2.Request(url)
-    req.add_header("User-agent", user_agent)
-    response = urllib2.urlopen(req)
-    xml = BeautifulSoup(response, "html.parser")
+    url = "https://opendict.korean.go.kr/api/search" + "?key=" + key + "&q=" + quote(requestWord) + "&num=100" \
+           + "&advanced=y" + "&target=1" + "&method=exact" #+ "&sort=popular"+ "&type1=word"
+
+    #header 정보 추가
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    }
+
+    # url 요청 및 오픈
+    req = urllib.request.Request(url, headers = headers)
+    data = urllib.request.urlopen(req).read()
+
+    #BeautifulSoup을 이용하여 파싱하기 위한 객체 생성
+    xml = BeautifulSoup(data, "html.parser")
     dict_list = list()
+    #item 검색
     for item in xml.findAll('item'):
         # print type(item)
         xmldict = collections.OrderedDict()
-        xmldict['word'] = item.find('word').text
-        sense = item.find('sense')
-        xmldict['mean'] = sense.find('definition').text
-        category = sense.find('cat')
+        xmldict['word'] = item.find('word').text #단어
+        sense = item.find('sense') #의미를 포함하는 <>
+        xmldict['mean'] = sense.find('definition').text #의미
+        category = sense.find('cat') #카테고리
         if category != None:
             xmldict['category'] = category.text
         else:
             xmldict['category'] = None
-        pos = sense.find('pos')
+        pos = sense.find('pos') #품사
         if pos != None:
             xmldict['part'] = pos.text
         else:
@@ -79,18 +146,32 @@ def get_saemmul_data(word):
         dict_list.append(xmldict)
     return dict_list     # type list of dict
 
+
 # fifth function
 def get_mean_words(mean):
-    # return komoran.nouns(unicode(mean))     #type list
-    return ['보통', '남자', '대접', '말']
+    include_word = list()
+    include_word.append(konlpy.nouns(mean))
+    return include_word
 
-#TODO : CRAWLING
-# sixth function
-def get_similar_words(word):
-    result = ['미스터', '남자', '양반']
-    return result   #type list
 
-komoran = Komoran()
-respone = test_server("신사")
-print respone
-print type(respone)
+# [sixth function : 네이버 크롤링해서 유사어 가져옴]
+def get_similar_words(word, mean):
+    url = "http://krdic.naver.com/search.nhn?dic_where=krdic&query=" + quote(word)
+    req = requests.get(url)
+    html = req.content
+    soup = BeautifulSoup(html.decode('utf-8', 'replace'), 'html.parser')
+    similar_list = list()
+    for tag in soup.find_all('span', text=mean):
+        for e in tag.parent.parent.parent.findAll('sup'):
+            e.extract()
+        for similar in tag.parent.parent.parent.findAll('a', 'syno'):
+            # print(similar)
+            similar_list.append(similar.text)
+    return similar_list
+
+konlpy = Twitter() #Window
+# konlpy = Mecab() #Linux
+response = get_relatives("필기")
+for i in response:
+    i.print()
+# print type(response)
