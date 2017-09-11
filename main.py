@@ -483,7 +483,10 @@ def main():
 def natural_language(str):
     # jpype.attachThreadToJVM()
     list = konlpy.nouns(str)
-    return list
+    result = ''
+    for i in list:
+        result += i
+    return result
 
 @app.route('/request/<string:str>')
 def response(str):
