@@ -12,8 +12,8 @@ import urllib.request
 from urllib.parse import quote
 from bs4 import BeautifulSoup
 # [fifth function]
-from konlpy.tag import Komoran  # Window용
-# from konlpy.tag import Mecab #Linux용
+# from konlpy.tag import Komoran  # Window용
+from konlpy.tag import Mecab #Linux용
 # [sixth function]
 import requests
 
@@ -467,7 +467,7 @@ def dbformean(searchWord):
 
 # [END Doori's function]
 
-konlpy = Komoran()
+konlpy = Mecab()
 
 app = Flask(__name__)
 app.debug=True
@@ -485,6 +485,9 @@ def test():
     return 'Hello, We are Geulgil Developer'
     # return "Hello,' +str+ ' We are GeulGil Developer :3"
 
+@app.route('/serin/<string:str>')
+def serin(str):
+    return konlpy.nouns(str)
 
 @app.errorhandler(500)
 def server_error(e):
