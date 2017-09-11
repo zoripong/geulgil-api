@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 # [START app]
 import logging
@@ -494,6 +494,6 @@ def server_error(e):
 
 if __name__ == '__main__':
     app.debug = True
-    # app.run(host="0.0.0.0")
-    app.run()
+    app.run(host="0.0.0.0")
+    # app.run()
 
