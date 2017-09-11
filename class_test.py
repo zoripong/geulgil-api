@@ -20,8 +20,7 @@ def test():
 def natural_language(str):
     jpype.attachThreadToJVM()
     list = konlpy.nouns(str)
-    result = json.dumps(list, indent=4)
-    return result
+    return list
 
 
 @app.errorhandler(500)

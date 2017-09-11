@@ -13,7 +13,7 @@ from urllib.parse import quote
 from bs4 import BeautifulSoup
 # [fifth function]
 # from konlpy.tag import Komoran  # Window용
-from konlpy.tag import Mecab #Linux용
+from konlpy.tag import Twitter #Linux용
 # [sixth function]
 import requests
 
@@ -354,7 +354,6 @@ def case2(cursor, apiItem, searchWord):
 
     return apiItem
 
-
 # case4:searchWord의 유사어키워드가 유사어키워드에 포함되어있는 단어
 def case4(cursor, apiItem, mKeyword):
     for l in mKeyword:
@@ -467,7 +466,7 @@ def dbformean(searchWord):
 
 # [END Doori's function]
 
-konlpy = Mecab()
+konlpy = Twitter()
 
 app = Flask(__name__)
 app.debug=True
@@ -478,16 +477,21 @@ app.debug=True
 
 @app.route('/')
 def main():
-    return 'test ok'
+    return 'Hello, We are Geulgil Developer XD'
 
-@app.route('/test')
-def test():
-    return 'Hello, We are Geulgil Developer'
-    # return "Hello,' +str+ ' We are GeulGil Developer :3"
+@app.route('/nouns/<string:str>')
+def natural_language(str):
+    # jpype.attachThreadToJVM()
+    list = konlpy.nouns(str)
+    return list
 
-@app.route('/serin/<string:str>')
-def serin(str):
-    return konlpy.nouns(str)
+@app.route('/request/<string:str>')
+def response(str):
+    request = str.split('!')
+    if(request[1] == 'true'):
+        dbformean(request[0])
+    else:
+        dbforsimilar(request[0])
 
 @app.errorhandler(500)
 def server_error(e):
