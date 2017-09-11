@@ -12,7 +12,7 @@ import urllib.request
 from urllib.parse import quote
 from bs4 import BeautifulSoup
 # [fifth function]
-from konlpy.tag import Twitter  # Window용
+from konlpy.tag import Komoran  # Window용
 # from konlpy.tag import Mecab #Linux용
 # [sixth function]
 import requests
@@ -73,7 +73,7 @@ class WordItem:
 
 
 # [End Class Modeling]
-# [Start API function]
+# [Start YURI's function]
 # [first function -> 검색어들과 관련된 단어들을 모두 가지고 옴]
 def test_server(word):
     # words = words_sentence.split(':')
@@ -186,9 +186,11 @@ def get_similar_words(word, mean):
     return similar_list
 
 
-# [END API function]
+# [END Yuri's function]
 
-# [Start DB function]
+# [Start Doori's function]
+
+
 # meanKeyword를 DB에 넣을 형식으로 바꿈
 def meanForDB(meanKeyword):
     m = ""
@@ -205,13 +207,10 @@ def similarForDB(similarKeyword):
     return s
 
 
-# filter가 유사어일 경우 --경우의 수 1,3 //유사어일 경우 이 함수 호출
-def dbforsimilar(searchWord):
-    conn = pymysql.connect(host='52.78.168.169', port=3306, user='root',
-                           passwd='Geulgil123!', db='geulgil', charset='utf8')
-    cursor = conn.cursor()
+# searchWord가 DB에 있는지 확인 후 없으면 insert
+def insertDB(conn, cursor, searchWord):
     cursor.execute("select * from item where word='" + searchWord + "'")
-    # searchWord가 없으면
+
     if (cursor.rowcount == 0):
         wordItem = get_relatives(searchWord)
         for i in wordItem:
@@ -225,38 +224,51 @@ def dbforsimilar(searchWord):
                     data)
                 conn.commit()
 
-    # searchWord의 의미키워드 배열 생성
-    cursor.execute("select similarkeyword from item where word ='" + searchWord + "'")
-    sKeyword = list()
-    for j in range(cursor.rowcount):
-        fetch = cursor.fetchone()[0]
-        if (fetch != ''):
-            sKeyword = fetch.split(",")
-            del sKeyword[len(sKeyword) - 1]
 
-    di_json = {'title': searchWord, 'relatives': []}
-
-    # case1:searchWord가 의미에 포함되어 있는 단어
+# case1:searchWord가 의미에 포함되어 있는 단어
+def case1(cursor, apiItem, searchWord):
     cursor.execute(
         "select * from item where similarkeyword like '" + searchWord + ",%' or similarkeyword like '%," + searchWord + ",%'")
     for k in range(cursor.rowcount):
         fetch = cursor.fetchone()
         if (fetch != None):
-            di = {}
-            di['id'] = fetch[0]
-            di['word'] = fetch[1]
-            di['mean'] = fetch[2]
-            di['part'] = fetch[3]
+            wordItem = {}
+            wordItem['id'] = fetch[0]
+            wordItem['word'] = fetch[1]
+            wordItem['mean'] = fetch[2]
+            wordItem['part'] = fetch[3]
             mk = fetch[4].split(",")
             del (mk[len(mk) - 1])
-            di['meankeyword'] = mk
+            wordItem['meankeyword'] = mk
             sk = fetch[5].split(",")
             del (sk[len(sk) - 1])
-            di['similarkeyword'] = sk
-            di['recommend'] = fetch[6]
-            di_json['relatives'].append(di)
+            wordItem['similarkeyword'] = sk
+            wordItem['recommend'] = fetch[6]
 
-    # case3:searchWord의 meankeyword가 의미에 포함되어 있는 단어
+            samesoundCnt = 0
+            for kk in range(0, len(apiItem['relatives'])):
+                if (apiItem['relatives'][kk]['id'] == fetch[1]):
+                    sameidCnt = 0
+                    for kkk in range(0, len(apiItem['relatives'][kk]['samesound'])):
+                        if (apiItem['relatives'][kk]['samesound'][kkk]['id'] == fetch[0]):
+                            sameidCnt += 1
+                            samesoundCnt += 1
+                            break
+                    if (sameidCnt >= 1):
+                        break
+                    apiItem['relatives'][kk]['samesound'].append(wordItem)
+                    samesoundCnt += 1
+                    break
+
+            if (samesoundCnt == 0):
+                same = {'id': fetch[1], 'samesound': [wordItem]}
+                apiItem['relatives'].append(same)
+
+    return apiItem
+
+
+# case3:searchWord의 meankeyword가 의미에 포함되어 있는 단어
+def case3(cursor, apiItem, sKeyword):
     # for meankeyword length 만큼
     for l in sKeyword:
         cursor.execute(
@@ -264,21 +276,155 @@ def dbforsimilar(searchWord):
         for ll in range(cursor.rowcount):
             fetch = cursor.fetchone()
             if (fetch != None):
-                di = {}
-                di['id'] = fetch[0]
-                di['word'] = fetch[1]
-                di['mean'] = fetch[2]
-                di['part'] = fetch[3]
+                wordItem = {}
+                wordItem['id'] = fetch[0]
+                wordItem['word'] = fetch[1]
+                wordItem['mean'] = fetch[2]
+                wordItem['part'] = fetch[3]
                 mk = fetch[4].split(",")
                 del (mk[len(mk) - 1])
-                di['meankeyword'] = mk
+                wordItem['meankeyword'] = mk
                 sk = fetch[5].split(",")
                 del (sk[len(sk) - 1])
-                di['similarkeyword'] = sk
-                di['recommend'] = fetch[6]
-                di_json['relatives'].append(di)
+                wordItem['similarkeyword'] = sk
+                wordItem['recommend'] = fetch[6]
 
-    jsonString = json.dumps(di_json, indent=4)
+                samesoundCnt = 0
+
+                for lll in range(0, len(apiItem['relatives'])):
+                    if (apiItem['relatives'][lll]['id'] == fetch[1]):
+                        sameidCnt = 0
+                        for llll in range(0, len(apiItem['relatives'][lll]['samesound'])):
+                            if (apiItem['relatives'][lll]['samesound'][llll]['id'] == fetch[0]):
+                                sameidCnt += 1
+                                samesoundCnt += 1
+                                break
+                        if (sameidCnt >= 1):
+                            break
+                        apiItem['relatives'][lll]['samesound'].append(wordItem)
+                        samesoundCnt += 1
+                        break
+
+                if (samesoundCnt == 0):
+                    same = {'id': fetch[1], 'samesound': [wordItem]}
+                    apiItem['relatives'].append(same)
+
+    return apiItem
+
+
+# case2:searchWord가 유사어키워드에 포함되어있는 단어
+def case2(cursor, apiItem, searchWord):
+    cursor.execute(
+        "select * from item where meankeyword like '" + searchWord + ",%' or meankeyword like '%," + searchWord + ",%'")
+    for k in range(cursor.rowcount):
+        fetch = cursor.fetchone()
+        if (fetch != None):
+            wordItem = {}
+            wordItem['id'] = fetch[0]
+            wordItem['word'] = fetch[1]
+            wordItem['mean'] = fetch[2]
+            wordItem['part'] = fetch[3]
+            mk = fetch[4].split(",")
+            del (mk[len(mk) - 1])
+            wordItem['meankeyword'] = mk
+            sk = fetch[5].split(",")
+            del (sk[len(sk) - 1])
+            wordItem['similarkeyword'] = sk
+            wordItem['recommend'] = fetch[6]
+
+            samesoundCnt = 0
+
+            for kk in range(0, len(apiItem['relatives'])):
+                if (apiItem['relatives'][kk]['id'] == fetch[1]):
+                    sameidCnt = 0
+                    for kkk in range(0, len(apiItem['relatives'][kk]['samesound'])):
+                        if (apiItem['relatives'][kk]['samesound'][kkk]['id'] == fetch[0]):
+                            sameidCnt += 1
+                            samesoundCnt += 1
+                            break
+                    if (sameidCnt >= 1):
+                        break
+                    apiItem['relatives'][kk]['samesound'].append(wordItem)
+                    samesoundCnt += 1
+                    break
+
+            if (samesoundCnt == 0):
+                same = {'id': fetch[1], 'samesound': [wordItem]}
+                apiItem['relatives'].append(same)
+
+    return apiItem
+
+
+# case4:searchWord의 유사어키워드가 유사어키워드에 포함되어있는 단어
+def case4(cursor, apiItem, mKeyword):
+    for l in mKeyword:
+        cursor.execute("select * from item where meankeyword like '" + l + ",%' or meankeyword like '%," + l + ",%'")
+        for ll in range(cursor.rowcount):
+            fetch = cursor.fetchone()
+            if (fetch != None):
+                wordItem = {}
+                wordItem['id'] = fetch[0]
+                wordItem['word'] = fetch[1]
+                wordItem['mean'] = fetch[2]
+                wordItem['part'] = fetch[3]
+                mk = fetch[4].split(",")
+                del (mk[len(mk) - 1])
+                wordItem['meankeyword'] = mk
+                sk = fetch[5].split(",")
+                del (sk[len(sk) - 1])
+                wordItem['similarkeyword'] = sk
+                wordItem['recommend'] = fetch[6]
+
+                samesoundCnt = 0
+
+                for lll in range(0, len(apiItem['relatives'])):
+                    if (apiItem['relatives'][lll]['id'] == fetch[1]):
+                        sameidCnt = 0
+                        for llll in range(0, len(apiItem['relatives'][lll]['samesound'])):
+                            if (apiItem['relatives'][lll]['samesound'][llll]['id'] == fetch[0]):
+                                sameidCnt += 1
+                                samesoundCnt += 1
+                                break
+                        if (sameidCnt >= 1):
+                            break
+                        apiItem['relatives'][lll]['samesound'].append(wordItem)
+                        samesoundCnt += 1
+                        break
+
+                if (samesoundCnt == 0):
+                    same = {'id': fetch[1], 'samesound': [wordItem]}
+                    apiItem['relatives'].append(same)
+
+    return apiItem
+
+
+# filter가 유사어일 경우 --경우의 수 1,3 //유사어일 경우 이 함수 호출
+def dbforsimilar(searchWord):
+    conn = pymysql.connect(host='52.78.168.169', port=3306, user='root', passwd='Geulgil123!', db='geulgil',
+                           charset='utf8')
+    cursor = conn.cursor()
+
+    # searchWord가 DB에 없다면 insert
+    insertDB(conn, cursor, searchWord)
+
+    # searchWord의 의미키워드 배열 생성
+    cursor.execute("select similarkeyword from item where word ='" + searchWord + "'")
+    sKeyword = []
+    for j in range(cursor.rowcount):
+        fetch = cursor.fetchone()[0]
+        if (fetch != ''):
+            sKeyword = fetch.split(",")
+            del sKeyword[len(sKeyword) - 1]
+
+    apiItem = {'title': searchWord, 'relatives': []}
+
+    # case1:searchWord가 의미에 포함되어 있는 단어
+    apiItem = case1(cursor, apiItem, searchWord)
+
+    # case3:searchWord의 meankeyword가 의미에 포함되어 있는 단어
+    apiItem = case3(cursor, apiItem, sKeyword)
+
+    jsonString = json.dumps(apiItem, indent=4)
 
     cursor.close()
     conn.close()
@@ -288,24 +434,12 @@ def dbforsimilar(searchWord):
 
 # filter가 의미일 경우 --경우의 수 2,4//포함어일경우 이 함수 호출
 def dbformean(searchWord):
-    conn = pymysql.connect(host='52.78.168.169', port=3306, user='root',
-                           passwd='Geulgil123!', db='geulgil', charset='utf8')
+    conn = pymysql.connect(host='52.78.168.169', port=3306, user='root', passwd='Geulgil123!', db='geulgil',
+                           charset='utf8')
     cursor = conn.cursor()
-    cursor.execute("select * from item where word='" + searchWord + "'")
 
-    # searchWord가 없으면
-    if (cursor.rowcount == 0):
-        wordItem = get_relatives(searchWord)
-        for i in wordItem:
-            cursor.execute("select * from item where mean='" + i.mean + "'")
-            if (cursor.rowcount == 0):
-                m = meanForDB(i.meanKeyword)
-                s = similarForDB(i.similarKeyword)
-                data = (i.word, i.mean, '', m, s)
-                cursor.execute(
-                    "insert into item(word,mean,part,meankeyword,similarkeyword,recommend) values(%s, %s, %s, %s, %s, 0)",
-                    data)
-                conn.commit()
+    # searchWord가 DB에 없다면 insert
+    insertDB(conn, cursor, searchWord)
 
     # searchWord의 의미키워드 배열 생성
     cursor.execute("select meankeyword from item where word ='" + searchWord + "'")
@@ -315,76 +449,42 @@ def dbformean(searchWord):
             mKeyword = fetch.split(",")
             del mKeyword[len(mKeyword) - 1]
 
-    di_json = {'title': searchWord, 'relative': []}
+    apiItem = {'title': searchWord, 'relatives': []}
 
     # case2:searchWord가 유사어키워드에 포함되어있는 단어
-    cursor.execute(
-        "select * from item where meankeyword like '" + searchWord + ",%' or meankeyword like '%," + searchWord + ",%'")
-    for k in range(cursor.rowcount):
-        fetch = cursor.fetchone()
-        if (fetch != None):
-            di = {}
-            di['id'] = fetch[0]
-            di['word'] = fetch[1]
-            di['mean'] = fetch[2]
-            di['part'] = fetch[3]
-            mk = fetch[4].split(",")
-            del (mk[len(mk) - 1])
-            di['meankeyword'] = mk
-            sk = fetch[5].split(",")
-            del (sk[len(sk) - 1])
-            di['similarkeyword'] = sk
-            di['recommend'] = fetch[6]
-            di_json['relative'].append(di)
+    apiItem = case2(cursor, apiItem, searchWord)
 
     # case4:searchWord의 유사어키워드가 유사어키워드에 포함되어있는 단어
-    # for meankeyword length 만큼
-    for l in mKeyword:
-        cursor.execute("select * from item where meankeyword like '" + l + ",%' or meankeyword like '%," + l + ",%'")
-        for ll in range(cursor.rowcount):
-            fetch = cursor.fetchone()
-            if (fetch != None):
-                di = {}
-                di['id'] = fetch[0]
-                di['word'] = fetch[1]
-                di['mean'] = fetch[2]
-                di['part'] = fetch[3]
-                mk = fetch[4].split(",")
-                del (mk[len(mk) - 1])
-                di['meankeyword'] = mk
-                sk = fetch[5].split(",")
-                del (sk[len(sk) - 1])
-                di['similarkeyword'] = sk
-                di['recommend'] = fetch[6]
-                di_json['relative'].append(di)
+    apiItem = case4(cursor, apiItem, mKeyword)
 
-    jsonString = json.dumps(di_json, indent=4)
+    jsonString = json.dumps(apiItem, indent=4)
 
     cursor.close()
     conn.close()
 
     return jsonString
-# [END DB function]
-#
-konlpy = Twitter()
-# print(get_mean_words("제주사랑 감귤사랑을 아십니까?"))
+
+
+# [END Doori's function]
+
+konlpy = Komoran()
+
 app = Flask(__name__)
 app.debug=True
-# print(dbformean("유리"))
-# [Start Flask]
+
+# data = dbformean("사랑")
+# print(data)
+
 
 @app.route('/')
-def test():
-    return "Hello, We are GeulGil Developer :3"
+def main():
+    return 'test ok'
 
 @app.route('/test')
-def test1():
-    print(get_mean_words("제주사랑 감귤사랑을 아십니까?"))
-    return "안녕난낭녕ㅇ"
+def test():
+    return 'Hello, We are Geulgil Developer'
+    # return "Hello,' +str+ ' We are GeulGil Developer :3"
 
-@app.route('/db')
-def db():
-    return dbformean("유리");
 
 @app.errorhandler(500)
 def server_error(e):
@@ -396,4 +496,4 @@ if __name__ == '__main__':
     app.debug = True
     # app.run(host="0.0.0.0")
     app.run()
-# [End Flask]
+
