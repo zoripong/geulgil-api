@@ -485,7 +485,7 @@ def natural_language(str):
     list = konlpy.nouns(str)
     result = ''
     for i in list:
-        result += i
+        result += i +':'
     return result
 
 @app.route('/request/<string:str>')
