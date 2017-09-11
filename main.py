@@ -492,9 +492,9 @@ def natural_language(str):
 def response(str):
     request = str.split('!')
     if(request[1] == 'true'):
-        dbformean(request[0])
+        return dbformean(request[0])
     else:
-        dbforsimilar(request[0])
+        return dbforsimilar(request[0])
 
 @app.errorhandler(500)
 def server_error(e):
