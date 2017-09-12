@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf1bef26-b33b-46d3-a0d5-e7a8c15b63cf" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +17,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="496" column="15" lean-forward="false" selection-start-line="496" selection-start-column="15" selection-end-line="496" selection-end-column="15" />
+            <state relative-caret-position="414">
+              <caret line="490" column="0" lean-forward="false" selection-start-line="490" selection-start-column="0" selection-end-line="490" selection-end-column="0" />
               <folding>
                 <element signature="e#39#53#0" expanded="true" />
               </folding>
@@ -40,7 +41,7 @@
       <file leaf-file-name="function_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/function_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1058">
+            <state relative-caret-position="115">
               <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding>
                 <element signature="e#44#62#0" expanded="true" />
@@ -52,7 +53,7 @@
       <file leaf-file-name="class_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/class_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
+            <state relative-caret-position="299">
               <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="22" selection-end-column="15" />
               <folding>
                 <element signature="e#1#24#0" expanded="true" />
@@ -691,7 +692,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/function_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1058">
+        <state relative-caret-position="115">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
             <element signature="e#44#62#0" expanded="true" />
@@ -701,7 +702,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/class_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
+        <state relative-caret-position="299">
           <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="22" selection-end-column="15" />
           <folding>
             <element signature="e#1#24#0" expanded="true" />
@@ -711,8 +712,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="496" column="15" lean-forward="false" selection-start-line="496" selection-start-column="15" selection-end-line="496" selection-end-column="15" />
+        <state relative-caret-position="414">
+          <caret line="490" column="0" lean-forward="false" selection-start-line="490" selection-start-column="0" selection-end-line="490" selection-end-column="0" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
           </folding>

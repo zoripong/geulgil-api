@@ -479,7 +479,7 @@ app.debug=True
 def main():
     return 'Hello, We are Geulgil Developer XD'
 
-@app.route('/nouns/<string:str>')
+@app.route('/nouns/<string:str>/')
 def natural_language(str):
     # jpype.attachThreadToJVM()
     list = konlpy.nouns(str)
@@ -488,13 +488,12 @@ def natural_language(str):
         result += i +':'
     return result
 
-@app.route('/request/<string:str>')
-def response(str):
-    request = str.split('!')
-    if(request[1] == 'true'):
-        return dbformean(request[0])
+@app.route('/request/<string:str>/<isMean>/')
+def response(str, isMean):
+    if(isMean == 'true'):
+        return dbformean(str)
     else:
-        return dbforsimilar(request[0])
+        return dbforsimilar(str)
 
 @app.errorhandler(500)
 def server_error(e):
