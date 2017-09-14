@@ -229,7 +229,7 @@ def insertDB(conn, cursor, searchWord):
 def case1(cursor, apiItem, searchWord):
     cursor.execute(
         "select * from item where similarkeyword like '" + searchWord + ",%' or similarkeyword like '%," + searchWord + ",%'")
-    for k in range(cursor.rowcount):
+    for i in range(cursor.rowcount):
         fetch = cursor.fetchone()
         if (fetch != None):
             wordItem = {}
@@ -246,17 +246,17 @@ def case1(cursor, apiItem, searchWord):
             wordItem['recommend'] = fetch[6]
 
             samesoundCnt = 0
-            for kk in range(0, len(apiItem['relatives'])):
-                if (apiItem['relatives'][kk]['id'] == fetch[1]):
+            for j in range(0, len(apiItem['relatives'])):
+                if (apiItem['relatives'][j]['id'] == fetch[1]):
                     sameidCnt = 0
-                    for kkk in range(0, len(apiItem['relatives'][kk]['samesound'])):
-                        if (apiItem['relatives'][kk]['samesound'][kkk]['id'] == fetch[0]):
+                    for k in range(0, len(apiItem['relatives'][j]['samesound'])):
+                        if (apiItem['relatives'][j]['samesound'][k]['id'] == fetch[0]):
                             sameidCnt += 1
                             samesoundCnt += 1
                             break
                     if (sameidCnt >= 1):
                         break
-                    apiItem['relatives'][kk]['samesound'].append(wordItem)
+                    apiItem['relatives'][j]['samesound'].append(wordItem)
                     samesoundCnt += 1
                     break
 
@@ -267,56 +267,11 @@ def case1(cursor, apiItem, searchWord):
     return apiItem
 
 
-# case3:searchWord의 meankeyword가 의미에 포함되어 있는 단어
-def case3(cursor, apiItem, sKeyword):
-    # for meankeyword length 만큼
-    for l in sKeyword:
-        cursor.execute(
-            "select * from item where similarkeyword like '" + l + ",%' or similarkeyword like '%," + l + ",%'")
-        for ll in range(cursor.rowcount):
-            fetch = cursor.fetchone()
-            if (fetch != None):
-                wordItem = {}
-                wordItem['id'] = fetch[0]
-                wordItem['word'] = fetch[1]
-                wordItem['mean'] = fetch[2]
-                wordItem['part'] = fetch[3]
-                mk = fetch[4].split(",")
-                del (mk[len(mk) - 1])
-                wordItem['meankeyword'] = mk
-                sk = fetch[5].split(",")
-                del (sk[len(sk) - 1])
-                wordItem['similarkeyword'] = sk
-                wordItem['recommend'] = fetch[6]
-
-                samesoundCnt = 0
-
-                for lll in range(0, len(apiItem['relatives'])):
-                    if (apiItem['relatives'][lll]['id'] == fetch[1]):
-                        sameidCnt = 0
-                        for llll in range(0, len(apiItem['relatives'][lll]['samesound'])):
-                            if (apiItem['relatives'][lll]['samesound'][llll]['id'] == fetch[0]):
-                                sameidCnt += 1
-                                samesoundCnt += 1
-                                break
-                        if (sameidCnt >= 1):
-                            break
-                        apiItem['relatives'][lll]['samesound'].append(wordItem)
-                        samesoundCnt += 1
-                        break
-
-                if (samesoundCnt == 0):
-                    same = {'id': fetch[1], 'samesound': [wordItem]}
-                    apiItem['relatives'].append(same)
-
-    return apiItem
-
-
 # case2:searchWord가 유사어키워드에 포함되어있는 단어
 def case2(cursor, apiItem, searchWord):
     cursor.execute(
         "select * from item where meankeyword like '" + searchWord + ",%' or meankeyword like '%," + searchWord + ",%'")
-    for k in range(cursor.rowcount):
+    for i in range(cursor.rowcount):
         fetch = cursor.fetchone()
         if (fetch != None):
             wordItem = {}
@@ -334,17 +289,17 @@ def case2(cursor, apiItem, searchWord):
 
             samesoundCnt = 0
 
-            for kk in range(0, len(apiItem['relatives'])):
-                if (apiItem['relatives'][kk]['id'] == fetch[1]):
+            for j in range(0, len(apiItem['relatives'])):
+                if (apiItem['relatives'][j]['id'] == fetch[1]):
                     sameidCnt = 0
-                    for kkk in range(0, len(apiItem['relatives'][kk]['samesound'])):
-                        if (apiItem['relatives'][kk]['samesound'][kkk]['id'] == fetch[0]):
+                    for k in range(0, len(apiItem['relatives'][j]['samesound'])):
+                        if (apiItem['relatives'][j]['samesound'][k]['id'] == fetch[0]):
                             sameidCnt += 1
                             samesoundCnt += 1
                             break
                     if (sameidCnt >= 1):
                         break
-                    apiItem['relatives'][kk]['samesound'].append(wordItem)
+                    apiItem['relatives'][j]['samesound'].append(wordItem)
                     samesoundCnt += 1
                     break
 
@@ -356,9 +311,9 @@ def case2(cursor, apiItem, searchWord):
 
 # case4:searchWord의 유사어키워드가 유사어키워드에 포함되어있는 단어
 def case4(cursor, apiItem, mKeyword):
-    for l in mKeyword:
-        cursor.execute("select * from item where meankeyword like '" + l + ",%' or meankeyword like '%," + l + ",%'")
-        for ll in range(cursor.rowcount):
+    for i in mKeyword:
+        cursor.execute("select * from item where meankeyword like '" + i + ",%' or meankeyword like '%," + i + ",%'")
+        for j in range(cursor.rowcount):
             fetch = cursor.fetchone()
             if (fetch != None):
                 wordItem = {}
@@ -376,17 +331,17 @@ def case4(cursor, apiItem, mKeyword):
 
                 samesoundCnt = 0
 
-                for lll in range(0, len(apiItem['relatives'])):
-                    if (apiItem['relatives'][lll]['id'] == fetch[1]):
+                for k in range(0, len(apiItem['relatives'])):
+                    if (apiItem['relatives'][k]['id'] == fetch[1]):
                         sameidCnt = 0
-                        for llll in range(0, len(apiItem['relatives'][lll]['samesound'])):
-                            if (apiItem['relatives'][lll]['samesound'][llll]['id'] == fetch[0]):
+                        for l in range(0, len(apiItem['relatives'][k]['samesound'])):
+                            if (apiItem['relatives'][k]['samesound'][l]['id'] == fetch[0]):
                                 sameidCnt += 1
                                 samesoundCnt += 1
                                 break
                         if (sameidCnt >= 1):
                             break
-                        apiItem['relatives'][lll]['samesound'].append(wordItem)
+                        apiItem['relatives'][k]['samesound'].append(wordItem)
                         samesoundCnt += 1
                         break
 
@@ -397,7 +352,7 @@ def case4(cursor, apiItem, mKeyword):
     return apiItem
 
 
-# filter가 유사어일 경우 --경우의 수 1,3 //유사어일 경우 이 함수 호출
+# filter가 유사어일 경우 --경우의 수 1 //유사어일 경우 이 함수 호출
 def dbforsimilar(searchWord):
     conn = pymysql.connect(host='52.78.168.169', port=3306, user='root', passwd='Geulgil123!', db='geulgil',
                            charset='utf8')
@@ -419,9 +374,6 @@ def dbforsimilar(searchWord):
 
     # case1:searchWord가 의미에 포함되어 있는 단어
     apiItem = case1(cursor, apiItem, searchWord)
-
-    # case3:searchWord의 meankeyword가 의미에 포함되어 있는 단어
-    apiItem = case3(cursor, apiItem, sKeyword)
 
     jsonString = json.dumps(apiItem, indent=4)
 
