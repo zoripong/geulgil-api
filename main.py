@@ -226,7 +226,7 @@ def insertDB(conn, cursor, searchWord):
 
 #commonCase
 def commonCase(cursor, apiItem, searchWord):
-    cursor.execute("select * from item where word ='searchWord'")
+    cursor.execute("select * from item where word ='"+searchWord+"'")
     for i in range(cursor.rowcount):
         fetch = cursor.fetchone()
         if (fetch != None):
@@ -453,6 +453,47 @@ def dbformean(searchWord):
 
     return jsonString
 
+#samesound 리턴
+def selectFromWord(searchWord):
+    conn = pymysql.connect(host='52.78.168.169', port=3306, user='root', passwd='Geulgil123!', db='geulgil',
+                           charset='utf8')
+    cursor = conn.cursor()
+
+    samesounds = {'id': searchWord, 'samesound': []}
+
+    cursor.execute("select * from item where word ='" + searchWord + "'")
+
+    for i in range(cursor.rowcount):
+        fetch = cursor.fetchone()
+        if (fetch != None):
+            wordItem = {}
+            wordItem['id'] = fetch[0]
+            wordItem['word'] = fetch[1]
+            wordItem['mean'] = fetch[2]
+            wordItem['part'] = fetch[3]
+            mk = fetch[4].split(",")
+            del (mk[len(mk) - 1])
+            wordItem['meankeyword'] = mk
+            sk = fetch[5].split(",")
+            del (sk[len(sk) - 1])
+            wordItem['similarkeyword'] = sk
+            wordItem['recommend'] = fetch[6]
+
+            sameidCnt = 0
+            for j in range(0, len(samesounds['samesound'])):
+                if (samesounds['samesound'][j]['id'] == fetch[0]):
+                    sameidCnt+=1
+                    break
+            if(sameidCnt == 0):
+                samesounds['samesound'].append(wordItem)
+
+    jsonString = json.dumps(samesounds, indent=4)
+
+    cursor.close()
+    conn.close()
+
+    return jsonString
+
 
 # [END Doori's function]
 
@@ -463,7 +504,8 @@ app.debug=True
 
 #data = dbformean("사랑")
 # print(data)
-
+#data = selectFromWord("사랑")
+#print(data)
 
 @app.route('/')
 def main():
