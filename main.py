@@ -527,6 +527,11 @@ def response(str, isMean):
     else:
         return dbforsimilar(str)
 
+
+@app.route('/request/<string:str>/')
+def getSamesound(str):
+    return selectFromWord(str)
+
 @app.errorhandler(500)
 def server_error(e):
     # Log the error and stacktrace.
