@@ -224,6 +224,46 @@ def insertDB(conn, cursor, searchWord):
                     data)
                 conn.commit()
 
+#commonCase
+def commonCase(cursor, apiItem, searchWord):
+    cursor.execute("select * from item where word ='searchWord'")
+    for i in range(cursor.rowcount):
+        fetch = cursor.fetchone()
+        if (fetch != None):
+            wordItem = {}
+            wordItem['id'] = fetch[0]
+            wordItem['word'] = fetch[1]
+            wordItem['mean'] = fetch[2]
+            wordItem['part'] = fetch[3]
+            mk = fetch[4].split(",")
+            del (mk[len(mk) - 1])
+            wordItem['meankeyword'] = mk
+            sk = fetch[5].split(",")
+            del (sk[len(sk) - 1])
+            wordItem['similarkeyword'] = sk
+            wordItem['recommend'] = fetch[6]
+
+            samesoundCnt = 0
+            for j in range(0, len(apiItem['relatives'])):
+                if (apiItem['relatives'][j]['id'] == fetch[1]):
+                    sameidCnt = 0
+                    for k in range(0, len(apiItem['relatives'][j]['samesound'])):
+                        if (apiItem['relatives'][j]['samesound'][k]['id'] == fetch[0]):
+                            sameidCnt += 1
+                            samesoundCnt += 1
+                            break
+                    if (sameidCnt >= 1):
+                        break
+                    apiItem['relatives'][j]['samesound'].append(wordItem)
+                    samesoundCnt += 1
+                    break
+
+            if (samesoundCnt == 0):
+                same = {'id': fetch[1], 'samesound': [wordItem]}
+                apiItem['relatives'].append(same)
+
+    return apiItem
+
 
 # case1:searchWord가 의미에 포함되어 있는 단어
 def case1(cursor, apiItem, searchWord):
@@ -309,10 +349,10 @@ def case2(cursor, apiItem, searchWord):
 
     return apiItem
 
-# case4:searchWord의 유사어키워드가 유사어키워드에 포함되어있는 단어
-def case4(cursor, apiItem, mKeyword):
-    for i in mKeyword:
-        cursor.execute("select * from item where meankeyword like '" + i + ",%' or meankeyword like '%," + i + ",%'")
+# case3:searchWord의 유사어키워드가 유사어키워드에 포함되어있는 단어
+def case3(cursor, apiItem, sKeyword):
+    for i in sKeyword:
+        cursor.execute("select * from item where similarkeyword like '" + i + ",%' or similarkeyword like '%," + i + ",%'")
         for j in range(cursor.rowcount):
             fetch = cursor.fetchone()
             if (fetch != None):
@@ -372,8 +412,15 @@ def dbforsimilar(searchWord):
 
     apiItem = {'title': searchWord, 'relatives': []}
 
-    # case1:searchWord가 의미에 포함되어 있는 단어
+
+    #commonCase:searchWord
+    apiItem = commonCase(cursor, apiItem, searchWord)
+
+    # case1:searchWord가 유사어에 포함되어 있는 단어
     apiItem = case1(cursor, apiItem, searchWord)
+
+    # case3:searchWord의 유사어가 유사어에 포함되어 있는 단어
+    apiItem = case3(cursor, apiItem, sKeyword)
 
     jsonString = json.dumps(apiItem, indent=4)
 
@@ -392,22 +439,13 @@ def dbformean(searchWord):
     # searchWord가 DB에 없다면 insert
     insertDB(conn, cursor, searchWord)
 
-    # searchWord의 의미키워드 배열 생성
-    cursor.execute("select meankeyword from item where word ='" + searchWord + "'")
-    for j in range(cursor.rowcount):
-        fetch = cursor.fetchone()[0]
-        if (fetch != ''):
-            mKeyword = fetch.split(",")
-            del mKeyword[len(mKeyword) - 1]
-
     apiItem = {'title': searchWord, 'relatives': []}
 
-    # case2:searchWord가 유사어키워드에 포함되어있는 단어
+    # commonCase:searchWord
+    apiItem = commonCase(cursor, apiItem, searchWord)
+
+    # case2:searchWord가 의미키워드에 포함되어있는 단어
     apiItem = case2(cursor, apiItem, searchWord)
-
-    # case4:searchWord의 유사어키워드가 유사어키워드에 포함되어있는 단어
-    apiItem = case4(cursor, apiItem, mKeyword)
-
     jsonString = json.dumps(apiItem, indent=4)
 
     cursor.close()
@@ -423,7 +461,7 @@ konlpy = Twitter()
 app = Flask(__name__)
 app.debug=True
 
-# data = dbformean("사랑")
+#data = dbformean("사랑")
 # print(data)
 
 
@@ -457,4 +495,3 @@ if __name__ == '__main__':
     app.debug = True
     app.run(host="0.0.0.0")
     # app.run()
-
