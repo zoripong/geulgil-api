@@ -306,49 +306,8 @@ def similarCase(cursor, apiItem, sKeyword):
 
     return apiItem
 
-# serachWord의 의미키워드 단어
-def meanCase(cursor,apiItem,mKeyword):
-    for i in mKeyword:
-        cursor.execute("select * from item where word = '"+i+"'")
-        for j in range(cursor.rowcount):
-            fetch = cursor.fetchone()
-            if (fetch != None):
-                wordItem = {}
-                wordItem['id'] = fetch[0]
-                wordItem['word'] = fetch[1]
-                wordItem['mean'] = fetch[2]
-                wordItem['part'] = fetch[3]
-                mk = fetch[4].split(",")
-                del (mk[len(mk) - 1])
-                wordItem['meankeyword'] = mk
-                sk = fetch[5].split(",")
-                del (sk[len(sk) - 1])
-                wordItem['similarkeyword'] = sk
-                wordItem['recommend'] = fetch[6]
 
-                samesoundCnt = 0
-
-                for k in range(0, len(apiItem['relatives'])):
-                    if (apiItem['relatives'][k]['id'] == fetch[1]):
-                        sameidCnt = 0
-                        for l in range(0, len(apiItem['relatives'][k]['samesound'])):
-                            if (apiItem['relatives'][k]['samesound'][l]['id'] == fetch[0]):
-                                sameidCnt += 1
-                                samesoundCnt += 1
-                                break
-                        if (sameidCnt >= 1):
-                            break
-                        apiItem['relatives'][k]['samesound'].append(wordItem)
-                        samesoundCnt += 1
-                        break
-
-                if (samesoundCnt == 0):
-                    same = {'id': fetch[1], 'samesound': [wordItem]}
-                    apiItem['relatives'].append(same)
-
-    return apiItem
-
-# case1:searchWord가 의미에 포함되어 있는 단어
+# case1:searchWord가 유사어에 포함되어 있는 단어
 def case1(cursor, apiItem, searchWord):
     cursor.execute(
         "select * from item where similarkeyword like '" + searchWord + ",%' or similarkeyword like '%," + searchWord + ",%'")
@@ -390,7 +349,7 @@ def case1(cursor, apiItem, searchWord):
     return apiItem
 
 
-# case2:searchWord가 유사어키워드에 포함되어있는 단어
+# case2:searchWord가 의미키워드에 포함되어있는 단어
 def case2(cursor, apiItem, searchWord):
     cursor.execute(
         "select * from item where meankeyword like '" + searchWord + ",%' or meankeyword like '%," + searchWord + ",%'")
@@ -484,7 +443,7 @@ def dbforsimilar(searchWord):
     # searchWord가 DB에 없다면 insert
     insertDB(conn, cursor, searchWord)
 
-    # searchWord의 의미키워드 배열 생성
+    # searchWord의 유사어키워드 배열 생성
     cursor.execute("select similarkeyword from item where word ='" + searchWord + "'")
     sKeyword = []
     for j in range(cursor.rowcount):
@@ -525,25 +484,15 @@ def dbformean(searchWord):
     # searchWord가 DB에 없다면 insert
     insertDB(conn, cursor, searchWord)
 
-    # searchWord의 의미키워드 배열 생성
-    cursor.execute("select meankeyword from item where word ='" + searchWord + "'")
-    mKeyword = []
-    for j in range(cursor.rowcount):
-        fetch = cursor.fetchone()[0]
-        if (fetch != ''):
-            mKeyword = fetch.split(",")
-            del mKeyword[len(mKeyword) - 1]
 
     apiItem = {'title': searchWord, 'relatives': []}
 
     # commonCase:searchWord
     apiItem = commonCase(cursor, apiItem, searchWord)
 
-    # searchWord의 의미키워드 단어
-    apiItem = meanCase(cursor, apiItem, mKeyword)
-
     # case2:searchWord가 의미키워드에 포함되어있는 단어
     apiItem = case2(cursor, apiItem, searchWord)
+
     jsonString = json.dumps(apiItem, indent=4)
 
     cursor.close()
