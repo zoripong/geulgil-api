@@ -506,6 +506,9 @@ def selectFromWord(searchWord):
                            charset='utf8')
     cursor = conn.cursor()
 
+    # searchWord가 DB에 없다면 insert
+    insertDB(conn, cursor, searchWord)
+
     samesounds = {'id': searchWord, 'samesound': []}
 
     cursor.execute("select * from item where word ='" + searchWord + "'")
@@ -542,6 +545,8 @@ def selectFromWord(searchWord):
     return jsonString
 
 
+
+
 # [END Doori's function]
 
 konlpy = Twitter()
@@ -549,6 +554,7 @@ konlpy = Twitter()
 app = Flask(__name__)
 app.debug=True
 
+#makingDB()
 #data = dbformean("사랑")
 # print(data)
 #data = selectFromWord("사랑")
