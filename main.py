@@ -218,7 +218,7 @@ def insertDB(conn, cursor, searchWord):
             if (cursor.rowcount == 0):
                 m = meanForDB(i.meanKeyword)
                 s = similarForDB(i.similarKeyword)
-                data = (i.word, i.mean, '', m, s)
+                data = (i.word, i.mean, '명사', m, s)
                 cursor.execute(
                     "insert into item(word,mean,part,meankeyword,similarkeyword,recommend) values(%s, %s, %s, %s, %s, 0)",
                     data)
