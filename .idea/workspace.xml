@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf1bef26-b33b-46d3-a0d5-e7a8c15b63cf" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/geulgil-api.iml" afterPath="$PROJECT_DIR$/.idea/geulgil-api.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
@@ -17,10 +19,22 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
-              <caret line="532" column="30" lean-forward="false" selection-start-line="532" selection-start-column="30" selection-end-line="532" selection-end-column="30" />
+            <state relative-caret-position="-390">
+              <caret line="242" column="43" lean-forward="true" selection-start-line="242" selection-start-column="43" selection-end-line="242" selection-end-column="43" />
               <folding>
                 <element signature="e#39#53#0" expanded="true" />
+                <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+                <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+                <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+                <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+                <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+                <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+                <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+                <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+                <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+                <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+                <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+                <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
               </folding>
             </state>
           </provider>
@@ -29,7 +43,7 @@
       <file leaf-file-name="main_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
+            <state relative-caret-position="266">
               <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
               <folding>
                 <element signature="e#24#35#0" expanded="true" />
@@ -41,7 +55,7 @@
       <file leaf-file-name="function_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/function_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
+            <state relative-caret-position="95">
               <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding>
                 <element signature="e#44#62#0" expanded="true" />
@@ -53,7 +67,7 @@
       <file leaf-file-name="class_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/class_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
+            <state relative-caret-position="247">
               <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="22" selection-end-column="15" />
               <folding>
                 <element signature="e#1#24#0" expanded="true" />
@@ -65,7 +79,7 @@
       <file leaf-file-name="request.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/urllib/request.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4531">
+            <state relative-caret-position="3743">
               <caret line="222" column="42" lean-forward="false" selection-start-line="222" selection-start-column="42" selection-end-line="222" selection-end-column="42" />
               <folding />
             </state>
@@ -75,7 +89,7 @@
       <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
+            <state relative-caret-position="57">
               <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
@@ -116,6 +130,12 @@
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="952" />
     <option name="width" value="976" />
@@ -155,7 +175,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -167,13 +186,15 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/Programs/Python/Python36/python.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/user/PycharmProjects/geulgil-api/main.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -200,6 +221,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="geulgil-api" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/class_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -217,6 +239,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="geulgil-api" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/function_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -234,6 +257,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="geulgil-api" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -251,6 +275,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="geulgil-api" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -288,19 +313,20 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13645834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39254385" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39254385" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.51644737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -330,6 +356,9 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.51644737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -361,6 +390,18 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
+            <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+            <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+            <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+            <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
           </folding>
         </state>
       </provider>
@@ -420,6 +461,18 @@
           <caret line="10" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
+            <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+            <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+            <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+            <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
           </folding>
         </state>
       </provider>
@@ -469,6 +522,18 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
+            <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+            <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+            <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+            <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
           </folding>
         </state>
       </provider>
@@ -501,6 +566,18 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
+            <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+            <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+            <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+            <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
           </folding>
         </state>
       </provider>
@@ -533,6 +610,18 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
+            <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+            <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+            <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+            <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
           </folding>
         </state>
       </provider>
@@ -565,6 +654,18 @@
           <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
+            <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+            <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+            <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+            <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
           </folding>
         </state>
       </provider>
@@ -597,6 +698,18 @@
           <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
+            <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+            <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+            <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+            <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
           </folding>
         </state>
       </provider>
@@ -657,16 +770,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://E:/Program/Lib/site-packages/konlpy/tag/_mecab.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://E:/Program/Lib/site-packages/konlpy/tag/_mecab.py" />
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
+        <state relative-caret-position="57">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
@@ -674,7 +781,7 @@
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/urllib/request.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4531">
+        <state relative-caret-position="3743">
           <caret line="222" column="42" lean-forward="false" selection-start-line="222" selection-start-column="42" selection-end-line="222" selection-end-column="42" />
           <folding />
         </state>
@@ -682,7 +789,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
+        <state relative-caret-position="266">
           <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
           <folding>
             <element signature="e#24#35#0" expanded="true" />
@@ -692,7 +799,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/function_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
+        <state relative-caret-position="95">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
             <element signature="e#44#62#0" expanded="true" />
@@ -702,7 +809,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/class_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
+        <state relative-caret-position="247">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="22" selection-end-column="15" />
           <folding>
             <element signature="e#1#24#0" expanded="true" />
@@ -712,10 +819,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="532" column="30" lean-forward="false" selection-start-line="532" selection-start-column="30" selection-end-line="532" selection-end-column="30" />
+        <state relative-caret-position="-390">
+          <caret line="242" column="43" lean-forward="true" selection-start-line="242" selection-start-column="43" selection-end-line="242" selection-end-column="43" />
           <folding>
             <element signature="e#39#53#0" expanded="true" />
+            <marker date="1505537697384" expanded="true" signature="5695:5745" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="5880:5926" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="6169:6268" ph="insert into item... " />
+            <marker date="1505537697384" expanded="true" signature="6405:6452" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="7985:8024" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="9681:9720" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="11372:11487" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="13014:13123" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="14674:14771" ph="select * fro... item" />
+            <marker date="1505537697384" expanded="true" signature="16699:16763" ph="select simil... item" />
+            <marker date="1505537697384" expanded="true" signature="17852:17913" ph="select meank... item" />
+            <marker date="1505537697384" expanded="true" signature="18832:18883" ph="select * fro... item" />
           </folding>
         </state>
       </provider>
