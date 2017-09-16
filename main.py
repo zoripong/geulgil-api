@@ -212,14 +212,15 @@ def similarForDB(similarKeyword):
 # searchWord가 DB에 있는지 확인 후 없으면 insert
 def insertDB(conn, cursor, searchWord):
     cursor.execute("select * from item where word='" + searchWord + "'")
-
-    if (cursor.rowcount == 0):
+    selectRow = cursor.rowcount
+    if (selectRow == 0):
         wordItem = get_relatives(searchWord)
         for i in wordItem:
             #i에 -있으면 replace
             i.word=(i.word).replace("-", "")
             cursor.execute("select * from item where mean='" + i.mean + "'")
-            if (cursor.rowcount == 0):
+            sameMean=cursor.rowcount
+            if (sameMean == 0):
                 m = meanForDB(i.meanKeyword)
                 s = similarForDB(i.similarKeyword)
                 data = (i.word, i.mean, '명사', m, s)
