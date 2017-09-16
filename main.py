@@ -195,6 +195,7 @@ def get_similar_words(word, mean):
 def meanForDB(meanKeyword):
     m = ""
     for i in meanKeyword[0]:
+        i=i.replace("-","")
         m += i + ","
     return m
 
@@ -203,6 +204,7 @@ def meanForDB(meanKeyword):
 def similarForDB(similarKeyword):
     s = ""
     for i in similarKeyword:
+        i = i.replace("-", "")
         s += i + ","
     return s
 
@@ -214,6 +216,8 @@ def insertDB(conn, cursor, searchWord):
     if (cursor.rowcount == 0):
         wordItem = get_relatives(searchWord)
         for i in wordItem:
+            #i에 -있으면 replace
+            i.word=(i.word).replace("-", "")
             cursor.execute("select * from item where mean='" + i.mean + "'")
             if (cursor.rowcount == 0):
                 m = meanForDB(i.meanKeyword)
